@@ -1,0 +1,31 @@
+name: Publish Library
+run-name: ${{ github.actor }} has pushed new production code
+
+on:
+  pull_request:
+    types: [closed, synchronize]
+    branches:
+      - main
+      - dev
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+          cache: 'npm'
+          registry-url: https://npm.pkg.github.com/
+
+      - name: cache npm dependencies
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: publish
+        run: npm publish
+        env: 
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
