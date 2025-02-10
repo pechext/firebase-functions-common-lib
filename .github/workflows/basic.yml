@@ -1,5 +1,6 @@
 name: Lint & Test
 run-name: ${{ github.actor }} has pushed new code
+
 on: [push]
 
 jobs:
@@ -10,7 +11,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '22'
           cache: 'npm'
 
       - name: cache npm dependencies
@@ -31,7 +32,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '22'
           cache: 'npm'
 
       - name: cache npm dependencies

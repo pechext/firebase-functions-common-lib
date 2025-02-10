@@ -1,6 +1,6 @@
 {
   "name": "@pechext/firebase-functions-common-lib",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An commons lib for firebase functions",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
