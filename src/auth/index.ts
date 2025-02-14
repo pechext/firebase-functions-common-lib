@@ -1,8 +1,7 @@
 import * as express from 'express';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
 import { getAuth } from 'firebase-admin/auth';
 import { App } from 'firebase-admin/app';
+import { createExpressApp } from '../api';
 
 declare global {
   export namespace Express {
@@ -44,14 +43,7 @@ export const validateTokenMiddleware = (firebaseApp: App): Middleware => {
 };
 
 export const createAuthApp = (firebaseApp: App): express.Application => {
-  const corsMiddleware = cors({ origin: true });
-  const cookieParserMiddleware = cookieParser();
-
-  const app = express.default();
-
-  app.use(corsMiddleware);
-  app.use(cookieParserMiddleware);
+  const app = createExpressApp();
   app.use(validateTokenMiddleware(firebaseApp));
-
   return app;
 };
